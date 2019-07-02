@@ -1,3 +1,5 @@
+import 'dart:io';
+
 void main() {
   print('Hello World!');
 
@@ -53,6 +55,12 @@ void main() {
   spacecraft.describe();
   var s2 = Spacecraft.unlaunched('guoguo');
   s2.describe();
+//------------------------------------------------------------------
+  Orbiter orbiter = new Orbiter('t', DateTime(2001, 9, 5));
+  orbiter.describe();
+  orbiter.describerCrew();
+
+  printWithDelay('异步');
 }
 
 class Spacecraft {
@@ -76,8 +84,73 @@ class Spacecraft {
   }
 }
 
-class Orbiter extends Spacecraft {
+class Piloted {
+  int astronauts = 1;
+
+  void describerCrew() {
+    print('Number of astronauts: $astronauts');
+  }
+}
+
+class Orbiter extends Spacecraft with Piloted {
   num altitude;
 
   Orbiter(String name, DateTime launchDate) : super(name, launchDate);
+}
+
+class MockSpaceship implements Spacecraft {
+  @override
+  DateTime launchDate;
+
+  @override
+  String name;
+
+  @override
+  void describe() {
+    // TODO: implement describe
+  }
+
+  @override
+  // TODO: implement launchYear
+  int get launchYear => null;
+}
+
+abstract class Describable {
+  void describe();
+
+  void describeWithEmphasis() {
+    print('===========');
+    describe();
+    print('===========');
+  }
+}
+
+const oneSecond = Duration(seconds: 5);
+
+Future<void> printWithDelay(String message) async {
+  await Future.delayed(oneSecond);
+  print('--->$message');
+}
+
+Future<void> printWithDelay2(String message) {
+  return Future.delayed(oneSecond).then((_) {
+    print(message);
+  });
+}
+
+Future<void> createDescriptions(Iterable<String> objects) async {
+  for (var object in objects) {
+    try {
+      var file = File('$object.txt');
+      if (await file.exists()) {
+        var modified = await file.lastModified();
+        print('File for $object already exists. It was modified on $modified');
+        continue;
+      }
+      await file.create();
+      await file.writeAsString('Start describing $object in this file.');
+    } on IOException catch (e) {
+      print('Cannot create description for $object: $e');
+    }
+  }
 }

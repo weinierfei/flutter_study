@@ -16,13 +16,16 @@ class MyApp extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Text(
-                '文本样式',
+                '文本样式测试一把kkkkkkk文本样式测试一把kkkkkkk文本样式测试一把kkkkkkk文本样式测试一把kkkkkkk',
+//                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.start,
                 style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.indigo,
-                    fontStyle: FontStyle.normal,
-                    fontWeight: FontWeight.bold,
-                    backgroundColor: Colors.red),
+                  fontSize: 16.0,
+                  color: Colors.indigo,
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.bold,
+                  backgroundColor: Colors.red,
+                ),
               ),
               Image.network(
                 "https://upload-images.jianshu.io/upload_images/1417629-53f7d0902457cbe6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240",
@@ -31,7 +34,7 @@ class MyApp extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
               RaisedButton(
-                onPressed: (){
+                onPressed: () {
                   print("onPressed");
                 },
                 color: Colors.lightBlueAccent,

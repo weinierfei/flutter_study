@@ -1,4 +1,7 @@
+import 'dart:core';
 import 'dart:io';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 void main() {
   print('Hello World!');
@@ -61,6 +64,22 @@ void main() {
   orbiter.describerCrew();
 
   printWithDelay('异步');
+
+  var point = Point(2, 12, 'Some point');
+  var pointJson = json.encode(point);
+  print('==========>$pointJson');
+
+  var points = [point, point];
+  var pointJsons = json.encode(points);
+  print('==========>$pointJsons');
+
+  var jsonString = '{"x":2,"y":12,"desc":"Some point"}';
+  var decoded = json.decode(jsonString);
+  var jsonToObject = Point.fromJson(decoded);
+  print('======>$jsonToObject');
+
+  getMessage();
+
 }
 
 class Spacecraft {
@@ -153,4 +172,43 @@ Future<void> createDescriptions(Iterable<String> objects) async {
       print('Cannot create description for $object: $e');
     }
   }
+}
+
+class Point {
+  int x;
+  int y;
+  String desc;
+
+  Point(this.x, this.y, this.desc);
+
+  Map<String, dynamic> toJson() => {
+        'x': x,
+        'y': y,
+        'desc': desc,
+      };
+
+  Point.fromJson(Map<String, dynamic> map)
+      : x = map['x'],
+        y = map['y'],
+        desc = map['desc'];
+
+  @override
+  String toString() {
+    return "Point{x=$x,y=$y,desc=$desc}";
+  }
+}
+
+/// http 测试
+Future<String> getMessage() async {
+  try {
+    final response = await http.get("https://wanandroid.com/article/listproject/0/json");
+    if (response.statusCode == 200) {
+      print('获取最新项目tab====${response.body}');
+      return response.body;
+    }
+  } catch (e) {
+    print('getMessage: $e');
+  }
+
+  return null;
 }

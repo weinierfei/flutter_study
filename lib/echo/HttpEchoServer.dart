@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:sqflite/sqflite.dart';
 
 import 'Message.dart';
 
@@ -9,11 +10,17 @@ class HttpEchoServer {
   final int port;
   HttpServer httpServer;
   Map<String, void Function(HttpRequest)> routes;
-  String historyFilepath;
 
   static const GET = "GET";
   static const POST = "POST";
   final List<Message> messages = [];
+
+  static const tableName = 'History';
+  static const columnId = 'id';
+  static const columnMsg = 'msg';
+  static const columnTimestamp = 'timestamp';
+
+  Database database;
 
   HttpEchoServer(this.port) {
     _initRoutes();
@@ -27,7 +34,7 @@ class HttpEchoServer {
   }
 
   Future start() async {
-    historyFilepath = await _historyPath();
+    await _initDatabase();
     // 启动服务前 先加载历史记录
     await _loadMessages();
     // 创建一个httpServer
@@ -44,6 +51,24 @@ class HttpEchoServer {
         request.response.close();
       }
     });
+  }
+
+  Future _initDatabase() async {
+    var path = await getDatabasesPath() + '/history.db';
+    database = await openDatabase(
+      path,
+      version: 1,
+      onCreate: (db, version) async {
+        var sql = '''
+      CREATE TABLE $tableName (
+      $columnId INTEGER PRIMARY KEY,
+      $columnMsg TEXT,
+      $columnTimestamp INTEGER
+      )
+      ''';
+        await db.execute(sql);
+      },
+    );
   }
 
   void _history(HttpRequest request) {
@@ -71,65 +96,46 @@ class HttpEchoServer {
     // 获取从客户端post请求的body
     String body = await request.transform(utf8.decoder).join();
     if (body != null) {
-      var message = Message.create(body);
+      Message message = Message.create(body);
       messages.add(message);
       request.response.statusCode = HttpStatus.ok;
 
       var data = json.encode(message);
       // 把响应写回给服务端
       request.response.write(data);
+      //存入数据库
+      _storeMessage(message);
     } else {
       request.response.statusCode = HttpStatus.badRequest;
     }
 
     request.response.close();
+  }
 
-    _storeMessage();
+  Future _loadMessages() async {
+    var list = await database.query(
+      tableName,
+      columns: [columnMsg, columnTimestamp],
+      orderBy: columnId,
+    );
+
+    for (var item in list) {
+      var message = Message.fromJson(item);
+      messages.add(message);
+    }
+  }
+
+  void _storeMessage(Message msg) {
+    database.insert(tableName, msg.toJson());
   }
 
   void close() async {
     var server = httpServer;
     httpServer = null;
     await server?.close();
-  }
 
-  Future<String> _historyPath() async {
-    final directory = await path_provider.getApplicationDocumentsDirectory();
-    return directory.path + '/messages.json';
-  }
-
-  Future<bool> _storeMessage() async {
-    try {
-      final data = json.encode(messages);
-      final file = File(historyFilepath);
-      final exists = await file.exists();
-      if (!exists) {
-        await file.create();
-      }
-
-      file.writeAsString(data);
-      return true;
-    } catch (e) {
-      print("_storeMessage: $e");
-      return false;
-    }
-  }
-
-  Future _loadMessages() async {
-    try {
-      var file = File(historyFilepath);
-      var exists = await file.exists();
-      if (!exists) {
-        return;
-      }
-      var content = await file.readAsString();
-      var list = json.decode(content);
-      for (var msg in list) {
-        var message = Message.fromJson(msg);
-        messages.add(message);
-      }
-    } catch (e) {
-      print('_loadMessages : $e');
-    }
+    var db = database;
+    database = null;
+    db?.close();
   }
 }

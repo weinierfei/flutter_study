@@ -25,7 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   english_words: ^3.1.5
   # http 请求
-  http: ^0.11.3-17
+  http: ^0.11.3+17
   # SQLite
   sqflite: any
   # 文件存储

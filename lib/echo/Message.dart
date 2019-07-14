@@ -1,24 +1,21 @@
 class Message {
   final String msg;
-  final int timetamp;
+  final int timestamp;
 
-  Message(this.msg, this.timetamp);
+  Message(this.msg, this.timestamp);
 
   Message.create(String msg)
       : msg = msg,
-        timetamp = DateTime.now().millisecondsSinceEpoch;
-
-  Map<String, dynamic> toJson() => {
-        'msg': "$msg",
-        'timetam': "$timetamp",
-      };
+        timestamp = DateTime.now().millisecondsSinceEpoch;
 
   Message.fromJson(Map<String, dynamic> json)
       : msg = json['msg'],
-        timetamp = json['timetamp'];
+        timestamp = json['timestamp'];
+
+  Map<String, dynamic> toJson() => {"msg": "$msg", "timestamp": timestamp};
 
   @override
   String toString() {
-    return 'Message{msg: $msg, timetam: $timetamp}';
+    return 'Message{msg: $msg, timestamp: $timestamp}';
   }
 }

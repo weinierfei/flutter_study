@@ -55,7 +55,7 @@ class _MessageListState extends State<MessageList> with WidgetsBindingObserver {
       itemCount: messages.length,
       itemBuilder: (context, index) {
         final msg = messages[index];
-        final subtitle = DateTime.fromMillisecondsSinceEpoch(msg.timetamp)
+        final subtitle = DateTime.fromMillisecondsSinceEpoch(msg.timestamp)
             .toLocal()
             .toIso8601String();
         return ListTile(

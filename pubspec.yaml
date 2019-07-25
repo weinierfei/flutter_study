@@ -29,7 +29,9 @@ dependencies:
   # SQLite
   sqflite: any
   # 文件存储
-  path_provider: ^0.4.1
+  path_provider: ^1.2.0
+  # 带有本地缓存的图片加载框架
+  cached_network_image: 1.1.1
 
 dev_dependencies:
   flutter_test:

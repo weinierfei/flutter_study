@@ -46,26 +46,31 @@ class MyAppState extends State<MyAppWidget> {
       appBar: AppBar(
         title: Text('控制器'),
       ),
-      body: Column(
+      body: Stack(
         children: <Widget>[
-          RaisedButton(
-            onPressed: isToTop
-                ? () {
-                    if (isToTop) {
-                      _controller.animateTo(.0,
-                          duration: Duration(milliseconds: 200),
-                          curve: Curves.ease);
-                    }
-                  }
-                : null,
-            child: Text('Top'),
-          ),
           ListView.builder(
             itemBuilder: (context, index) => ListTile(
               title: Text('Index $index'),
             ),
             itemCount: 100,
             controller: _controller,
+          ),
+          Container(
+            height: 50.0,
+            alignment: Alignment.center,
+            color: Colors.green,
+            child: RaisedButton(
+              onPressed: isToTop
+                  ? () {
+                      if (isToTop) {
+                        _controller.animateTo(.0,
+                            duration: Duration(milliseconds: 200),
+                            curve: Curves.ease);
+                      }
+                    }
+                  : null,
+              child: Text('Top'),
+            ),
           ),
         ],
       ),

@@ -11,11 +11,59 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/// ScrollNotification
+class TestScrollNotificationState extends State<MyAppWidget> {
+  bool isToTop = false; // 标记目前是否需要医用 top 按钮
+  double offsetY = 0;
+  NotificationListener listener;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('ScrollController Demo'),
+      ),
+      body: Stack(
+        children: <Widget>[
+          listener = NotificationListener<ScrollNotification>(
+            onNotification: (notification) {
+              offsetY = notification.metrics.pixels;
+              if (offsetY > 1000) {
+                setState(() {
+                  isToTop = true;
+                });
+              } else if (offsetY < 300) {
+                setState(() {
+                  isToTop = false;
+                });
+              }
+            },
+            child: ListView.builder(
+              itemBuilder: (context, index) => ListTile(
+                title: Text('Index $index'),
+              ),
+              itemCount: 100,
+            ),
+          ),
+          Container(
+            height: 50.0,
+            alignment: Alignment.center,
+            color: Colors.green,
+            child: RaisedButton(
+              child: Text('Top'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 /// 控制器
 class MyAppWidget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return MyAppState();
+    return TestScrollNotificationState();
   }
 }
 
@@ -63,9 +111,11 @@ class MyAppState extends State<MyAppWidget> {
               onPressed: isToTop
                   ? () {
                       if (isToTop) {
-                        _controller.animateTo(.0,
-                            duration: Duration(milliseconds: 200),
-                            curve: Curves.ease);
+                        _controller.animateTo(
+                          .0,
+                          duration: Duration(milliseconds: 200),
+                          curve: Curves.ease,
+                        );
                       }
                     }
                   : null,

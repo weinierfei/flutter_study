@@ -51,6 +51,7 @@ class TestScrollNotificationState extends State<MyAppWidget> {
             color: Colors.green,
             child: RaisedButton(
               child: Text('Top'),
+              onPressed: () => print(""),
             ),
           ),
         ],

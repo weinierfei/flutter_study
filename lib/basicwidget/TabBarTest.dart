@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/scheduler/ticker.dart';
 
 /// 1.TabBar用于显示水平的选项卡，和Android中的TabLayout类似
 /// 2.TabBar通常需要配合TabBarView和TabController使用

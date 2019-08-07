@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
+bool _isLight = false;
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+          brightness: _isLight ? Brightness.light : Brightness.dark,
+      ),
       home: Scaffold(
         appBar: AppBar(
           title: Text('控件组合'),

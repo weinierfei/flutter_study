@@ -8,9 +8,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('登录'),
+          title: Text('登录表单'),
         ),
-        body: FocusTestRoute(),
+        body: FormTestRoute(),
       ),
     );
   }
@@ -66,6 +66,19 @@ class _FocusTestRouteState extends State<FocusTestRoute> {
   FocusNode focusNode2 = FocusNode();
   FocusScopeNode focusScopeNode;
 
+  bool isNode1HasFocus = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    focusNode1.addListener(() {
+      setState(() {
+        focusNode1.hasFocus ? isNode1HasFocus = true : isNode1HasFocus = false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -84,7 +97,7 @@ class _FocusTestRouteState extends State<FocusTestRoute> {
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: Colors.grey[200],
+                  color: isNode1HasFocus ? Colors.red : Colors.grey[200],
                   width: 1,
                 ),
               ),
@@ -125,6 +138,80 @@ class _FocusTestRouteState extends State<FocusTestRoute> {
             );
           }),
         ],
+      ),
+    );
+  }
+}
+
+/// Form 表单
+class FormTestRoute extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _FormTestRouteState();
+  }
+}
+
+class _FormTestRouteState extends State<FormTestRoute> {
+  TextEditingController _unameController = TextEditingController();
+  TextEditingController _pwdController = TextEditingController();
+  GlobalKey _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+      child: Form(
+        key: _formKey,
+        autovalidate: true,
+        child: Column(
+          children: <Widget>[
+            TextFormField(
+              autofocus: true,
+              controller: _unameController,
+              decoration: InputDecoration(
+                labelText: '用户名',
+                hintText: '请输入用户名',
+                icon: Icon(Icons.person),
+              ),
+              validator: (v) {
+                return v.trim().length > 0 ? null : "用户名不能为空";
+              },
+            ),
+            TextFormField(
+              controller: _pwdController,
+              decoration: InputDecoration(
+                labelText: '密 码',
+                hintText: '请输入密码',
+                icon: Icon(Icons.lock),
+              ),
+              obscureText: true,
+              validator: (v) {
+                return v.trim().length > 5 ? null : '密码不能少于6位';
+              },
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 28),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: RaisedButton(
+                      padding: EdgeInsets.all(15),
+                      child: Text('登录'),
+                      color: Theme.of(context).primaryColor,
+                      textColor: Colors.white,
+                      onPressed: () {
+                        // 在这里不能通过FormState.of(context) 方法获取,因为此处的context为FormTestRoute的context
+                        if ((_formKey.currentState as FormState).validate()) {
+                          // 验证通过 ,提交数据
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

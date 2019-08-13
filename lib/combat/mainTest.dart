@@ -1,7 +1,16 @@
 import 'package:first_flutter_app/combat/widgets/page_scaffold.dart';
 import 'package:flutter/material.dart';
 
+import 'AlignTestRoute.dart';
+import 'BoxTestRoute.dart';
+import 'DecorationTestRoute.dart';
+import 'FlexLayoutTestRoute.dart';
+import 'FlowLayoutTestRoute.dart';
+import 'LinearLayoutTestRoute.dart';
+import 'PaddingTestRoute.dart';
 import 'ProgressRoute.dart';
+import 'StackLayoutTestRoute.dart';
+import 'TransformTestRoute.dart';
 
 void main() => runApp(MyApp());
 
@@ -70,7 +79,20 @@ class _MyHomePageState extends State<MyHomePage> {
           ExpansionTile(
             title: Text('布局类组件'),
             children: _generateItem(context, [
-              PageInfo("Column居中", (ctx) => ProgressRoute()),
+              PageInfo("线性布局", (ctx) => LinearLayoutTest()),
+              PageInfo("弹性布局", (ctx) => FlexLayoutTestRoute()),
+              PageInfo("流式布局", (ctx) => FlowLayoutTestRoute()),
+              PageInfo("层叠布局", (ctx) => StackLayoutTestRoute()),
+              PageInfo("对齐与相对定位", (ctx) => AlignTestRoute()),
+            ]),
+          ),
+          ExpansionTile(
+            title: Text('容器类组件'),
+            children: _generateItem(context, [
+              PageInfo("填充(Padding)", (ctx) => PaddingTestRoute()),
+              PageInfo("尺寸限制类容器", (ctx) => BoxTestRoute()),
+              PageInfo("装饰类容器", (ctx) => DecorationTestRoute()),
+              PageInfo("变换(Transform)", (ctx) => TransformTestRoute()),
             ]),
           ),
         ],

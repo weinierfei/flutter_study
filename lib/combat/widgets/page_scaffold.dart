@@ -15,7 +15,7 @@ class PageScaffold extends StatelessWidget {
       ),
       body: padding
           ? Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(0.0),
               child: body,
             )
           : body,

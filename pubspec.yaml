@@ -57,6 +57,7 @@ flutter:
     - assets/swordsmen.json
     - images/1.png
     - images/2.png
+    - images/avatar.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

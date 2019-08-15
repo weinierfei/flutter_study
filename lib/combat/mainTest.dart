@@ -3,12 +3,20 @@ import 'package:flutter/material.dart';
 
 import 'AlignTestRoute.dart';
 import 'BoxTestRoute.dart';
+import 'ClipTestRoute.dart';
+import 'ContainerTestRoute.dart';
+import 'CustomScrollViewTestRoute.dart';
 import 'DecorationTestRoute.dart';
 import 'FlexLayoutTestRoute.dart';
 import 'FlowLayoutTestRoute.dart';
+import 'GridViewTestRoute.dart';
 import 'LinearLayoutTestRoute.dart';
+import 'ListViewTestRoute.dart';
 import 'PaddingTestRoute.dart';
 import 'ProgressRoute.dart';
+import 'ScaffoldTabBarTestRoute.dart';
+import 'ScrollControllerTestRoute.dart';
+import 'SingleChildScrollViewTestRoute.dart';
 import 'StackLayoutTestRoute.dart';
 import 'TransformTestRoute.dart';
 
@@ -93,6 +101,19 @@ class _MyHomePageState extends State<MyHomePage> {
               PageInfo("尺寸限制类容器", (ctx) => BoxTestRoute()),
               PageInfo("装饰类容器", (ctx) => DecorationTestRoute()),
               PageInfo("变换(Transform)", (ctx) => TransformTestRoute()),
+              PageInfo("Container容器", (ctx) => ContainerTestRoute()),
+              PageInfo("Scaffold,TabBar,NavigationBar", (ctx) => ScaffoldTabBarTestRoute(),withScaffold: false),
+              PageInfo("裁剪(Clip)", (ctx) => ClipTestRoute()),
+            ]),
+          ),
+          ExpansionTile(
+            title: Text('可滚动组件'),
+            children: _generateItem(context, [
+              PageInfo("SingleChildScrollView", (ctx) => SingleChildScrollViewTestRoute()),
+              PageInfo("ListView", (ctx) => ListViewTestRoute()),
+              PageInfo("GridView", (ctx) => GridViewTestRoute()),
+              PageInfo("CustomScrollView", (ctx) => CustomScrollViewTestRoute(),withScaffold: false),
+              PageInfo("ScrollController", (ctx) => ScrollControllerTestRoute(),withScaffold: true),
             ]),
           ),
         ],

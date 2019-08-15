@@ -1,6 +1,7 @@
 import 'package:first_flutter_app/combat/widgets/page_scaffold.dart';
 import 'package:flutter/material.dart';
 
+import 'AlertDialogTestRoute.dart';
 import 'AlignTestRoute.dart';
 import 'BoxTestRoute.dart';
 import 'ClipTestRoute.dart';
@@ -9,16 +10,21 @@ import 'CustomScrollViewTestRoute.dart';
 import 'DecorationTestRoute.dart';
 import 'FlexLayoutTestRoute.dart';
 import 'FlowLayoutTestRoute.dart';
+import 'FutureAndStreamTestRoute.dart';
 import 'GridViewTestRoute.dart';
+import 'InheritedTestRoute.dart';
 import 'LinearLayoutTestRoute.dart';
 import 'ListViewTestRoute.dart';
 import 'PaddingTestRoute.dart';
 import 'ProgressRoute.dart';
+import 'ProviderTestRoute.dart';
 import 'ScaffoldTabBarTestRoute.dart';
 import 'ScrollControllerTestRoute.dart';
 import 'SingleChildScrollViewTestRoute.dart';
 import 'StackLayoutTestRoute.dart';
+import 'ThemeTestRoute.dart';
 import 'TransformTestRoute.dart';
+import 'WillPopScopeTestRoute.dart';
 
 void main() => runApp(MyApp());
 
@@ -114,6 +120,17 @@ class _MyHomePageState extends State<MyHomePage> {
               PageInfo("GridView", (ctx) => GridViewTestRoute()),
               PageInfo("CustomScrollView", (ctx) => CustomScrollViewTestRoute(),withScaffold: false),
               PageInfo("ScrollController", (ctx) => ScrollControllerTestRoute(),withScaffold: true),
+            ]),
+          ),
+          ExpansionTile(
+            title: Text('功能型组件'),
+            children: _generateItem(context, [
+              PageInfo("返回拦截(WillpopScope)", (ctx) => WillPopScopeTestRoute()),
+              PageInfo("数据共享(InheritedWidget)", (ctx) => InheritedTestRoute()),
+              PageInfo("款组件状态共享(Provider)", (ctx) => ProviderTestRoute()),
+              PageInfo("颜色和主题(Theme)", (ctx) => ThemeTestRoute(), withScaffold: false),
+              PageInfo("异步更新UI", (ctx) => FutureAndStreamTestRoute()),
+              PageInfo("对话框", (ctx) => AlertDialogTestRoute()),
             ]),
           ),
         ],

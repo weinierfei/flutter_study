@@ -32,6 +32,8 @@ dependencies:
   path_provider: ^1.2.0
   # 带有本地缓存的图片加载框架
   cached_network_image: 1.1.1
+  # toast
+  oktoast: ^2.1.9
 
 dev_dependencies:
   flutter_test:

@@ -130,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
               PageInfo("款组件状态共享(Provider)", (ctx) => ProviderTestRoute()),
               PageInfo("颜色和主题(Theme)", (ctx) => ThemeTestRoute(), withScaffold: false),
               PageInfo("异步更新UI", (ctx) => FutureAndStreamTestRoute()),
-              PageInfo("对话框", (ctx) => AlertDialogTestRoute()),
+              PageInfo("对话框", (ctx) => DialogRoute()),
             ]),
           ),
         ],

@@ -11,10 +11,12 @@ import 'DecorationTestRoute.dart';
 import 'FlexLayoutTestRoute.dart';
 import 'FlowLayoutTestRoute.dart';
 import 'FutureAndStreamTestRoute.dart';
+import 'GestureDetectorTestRoute.dart';
 import 'GridViewTestRoute.dart';
 import 'InheritedTestRoute.dart';
 import 'LinearLayoutTestRoute.dart';
 import 'ListViewTestRoute.dart';
+import 'NotificationTestRoute.dart';
 import 'PaddingTestRoute.dart';
 import 'ProgressRoute.dart';
 import 'ProviderTestRoute.dart';
@@ -131,6 +133,13 @@ class _MyHomePageState extends State<MyHomePage> {
               PageInfo("颜色和主题(Theme)", (ctx) => ThemeTestRoute(), withScaffold: false),
               PageInfo("异步更新UI", (ctx) => FutureAndStreamTestRoute()),
               PageInfo("对话框", (ctx) => DialogRoute()),
+            ]),
+          ),
+          ExpansionTile(
+            title: Text('事件处理与通知'),
+            children: _generateItem(context, [
+              PageInfo('手势识别',(ctx)=> GestureDetectorTestRoute()),
+              PageInfo('通知(Notification)',(ctx)=> NotificationTestRoute()),
             ]),
           ),
         ],

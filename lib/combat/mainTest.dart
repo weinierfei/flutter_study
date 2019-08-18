@@ -1,11 +1,14 @@
+import 'package:first_flutter_app/combat/CombinationTestRoute.dart';
 import 'package:first_flutter_app/combat/widgets/page_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import 'AlertDialogTestRoute.dart';
 import 'AlignTestRoute.dart';
+import 'AnimatedSwitcherRoute.dart';
 import 'BoxTestRoute.dart';
 import 'ClipTestRoute.dart';
 import 'ContainerTestRoute.dart';
+import 'CustomPaintTestRoute.dart';
 import 'CustomScrollViewTestRoute.dart';
 import 'DecorationTestRoute.dart';
 import 'FlexLayoutTestRoute.dart';
@@ -13,6 +16,7 @@ import 'FlowLayoutTestRoute.dart';
 import 'FutureAndStreamTestRoute.dart';
 import 'GestureDetectorTestRoute.dart';
 import 'GridViewTestRoute.dart';
+import 'HeroAnimationRoute.dart';
 import 'InheritedTestRoute.dart';
 import 'LinearLayoutTestRoute.dart';
 import 'ListViewTestRoute.dart';
@@ -21,11 +25,14 @@ import 'PaddingTestRoute.dart';
 import 'ProgressRoute.dart';
 import 'ProviderTestRoute.dart';
 import 'ScaffoldTabBarTestRoute.dart';
+import 'ScaleAnimationRoute.dart';
 import 'ScrollControllerTestRoute.dart';
 import 'SingleChildScrollViewTestRoute.dart';
 import 'StackLayoutTestRoute.dart';
+import 'StaggerAnimationRoute.dart';
 import 'ThemeTestRoute.dart';
 import 'TransformTestRoute.dart';
+import 'TurnBoxTestRoute.dart';
 import 'WillPopScopeTestRoute.dart';
 
 void main() => runApp(MyApp());
@@ -140,6 +147,23 @@ class _MyHomePageState extends State<MyHomePage> {
             children: _generateItem(context, [
               PageInfo('手势识别',(ctx)=> GestureDetectorTestRoute()),
               PageInfo('通知(Notification)',(ctx)=> NotificationTestRoute()),
+            ]),
+          ),
+          ExpansionTile(
+            title: Text('动画'),
+            children: _generateItem(context, [
+              PageInfo('动画结构', (ctx) => ScaleAnimationRoute()),
+              PageInfo('Hero动画', (ctx) => HeroAnimationRoute()),
+              PageInfo('交织动画', (ctx) => StaggerAnimationRoute()),
+              PageInfo('通用动画(AnimatedSwitcher)', (ctx) => AnimatedSwitcherRoute()),
+            ]),
+          ),
+          ExpansionTile(
+            title: Text('自定义组件'),
+            children: _generateItem(context, [
+              PageInfo('组合现有组件', (ctx) => CombinationTestRoute()),
+              PageInfo('组合实例TurnBox', (ctx) => TurnBoxTestRoute()),
+              PageInfo('自绘组件(CustomPaint)', (ctx) => CustomPaintTestRoute()),
             ]),
           ),
         ],

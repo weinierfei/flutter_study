@@ -15,6 +15,7 @@ import 'FlexLayoutTestRoute.dart';
 import 'FlowLayoutTestRoute.dart';
 import 'FutureAndStreamTestRoute.dart';
 import 'GestureDetectorTestRoute.dart';
+import 'GradientCircularProgressRoute.dart';
 import 'GridViewTestRoute.dart';
 import 'HeroAnimationRoute.dart';
 import 'InheritedTestRoute.dart';
@@ -164,6 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
               PageInfo('组合现有组件', (ctx) => CombinationTestRoute()),
               PageInfo('组合实例TurnBox', (ctx) => TurnBoxTestRoute()),
               PageInfo('自绘组件(CustomPaint)', (ctx) => CustomPaintTestRoute()),
+              PageInfo('自绘实例(圆形背景渐变进度条)', (ctx) => GradientCircularProgressRoute()),
             ]),
           ),
         ],

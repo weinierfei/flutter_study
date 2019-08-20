@@ -11,6 +11,8 @@ import 'ContainerTestRoute.dart';
 import 'CustomPaintTestRoute.dart';
 import 'CustomScrollViewTestRoute.dart';
 import 'DecorationTestRoute.dart';
+import 'DioTestRoute.dart';
+import 'FileOperationTestRoute.dart';
 import 'FlexLayoutTestRoute.dart';
 import 'FlowLayoutTestRoute.dart';
 import 'FutureAndStreamTestRoute.dart';
@@ -18,6 +20,7 @@ import 'GestureDetectorTestRoute.dart';
 import 'GradientCircularProgressRoute.dart';
 import 'GridViewTestRoute.dart';
 import 'HeroAnimationRoute.dart';
+import 'HttpClientTestRoute.dart';
 import 'InheritedTestRoute.dart';
 import 'LinearLayoutTestRoute.dart';
 import 'ListViewTestRoute.dart';
@@ -34,6 +37,7 @@ import 'StaggerAnimationRoute.dart';
 import 'ThemeTestRoute.dart';
 import 'TransformTestRoute.dart';
 import 'TurnBoxTestRoute.dart';
+import 'WebSocketTestRoute.dart';
 import 'WillPopScopeTestRoute.dart';
 
 void main() => runApp(MyApp());
@@ -166,6 +170,15 @@ class _MyHomePageState extends State<MyHomePage> {
               PageInfo('组合实例TurnBox', (ctx) => TurnBoxTestRoute()),
               PageInfo('自绘组件(CustomPaint)', (ctx) => CustomPaintTestRoute()),
               PageInfo('自绘实例(圆形背景渐变进度条)', (ctx) => GradientCircularProgressRoute()),
+            ]),
+          ),
+          ExpansionTile(
+            title: Text('文件与网络操作'),
+            children: _generateItem(context, [
+              PageInfo('文件操作', (ctx) => FileOperationTestRoute(), withScaffold: false),
+              PageInfo('HttpClient', (ctx) => HttpClientTestRoute()),
+              PageInfo('Dio库', (ctx) => DioTestRoute()),
+              PageInfo('WebSocket协议', (ctx) => WebSocketTestRoute()),
             ]),
           ),
         ],

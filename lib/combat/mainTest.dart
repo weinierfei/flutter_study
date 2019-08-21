@@ -1,7 +1,8 @@
+import 'package:camera/camera.dart';
 import 'package:first_flutter_app/combat/CombinationTestRoute.dart';
 import 'package:first_flutter_app/combat/widgets/page_scaffold.dart';
 import 'package:flutter/material.dart';
-
+import 'widgets/common.dart';
 import 'AlertDialogTestRoute.dart';
 import 'AlignTestRoute.dart';
 import 'AnimatedSwitcherRoute.dart';
@@ -34,13 +35,17 @@ import 'ScrollControllerTestRoute.dart';
 import 'SingleChildScrollViewTestRoute.dart';
 import 'StackLayoutTestRoute.dart';
 import 'StaggerAnimationRoute.dart';
+import 'CameraTestRoute.dart';
 import 'ThemeTestRoute.dart';
 import 'TransformTestRoute.dart';
 import 'TurnBoxTestRoute.dart';
 import 'WebSocketTestRoute.dart';
 import 'WillPopScopeTestRoute.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  cameras = await availableCameras();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -122,18 +127,23 @@ class _MyHomePageState extends State<MyHomePage> {
               PageInfo("装饰类容器", (ctx) => DecorationTestRoute()),
               PageInfo("变换(Transform)", (ctx) => TransformTestRoute()),
               PageInfo("Container容器", (ctx) => ContainerTestRoute()),
-              PageInfo("Scaffold,TabBar,NavigationBar", (ctx) => ScaffoldTabBarTestRoute(),withScaffold: false),
+              PageInfo("Scaffold,TabBar,NavigationBar",
+                  (ctx) => ScaffoldTabBarTestRoute(),
+                  withScaffold: false),
               PageInfo("裁剪(Clip)", (ctx) => ClipTestRoute()),
             ]),
           ),
           ExpansionTile(
             title: Text('可滚动组件'),
             children: _generateItem(context, [
-              PageInfo("SingleChildScrollView", (ctx) => SingleChildScrollViewTestRoute()),
+              PageInfo("SingleChildScrollView",
+                  (ctx) => SingleChildScrollViewTestRoute()),
               PageInfo("ListView", (ctx) => ListViewTestRoute()),
               PageInfo("GridView", (ctx) => GridViewTestRoute()),
-              PageInfo("CustomScrollView", (ctx) => CustomScrollViewTestRoute(),withScaffold: false),
-              PageInfo("ScrollController", (ctx) => ScrollControllerTestRoute(),withScaffold: true),
+              PageInfo("CustomScrollView", (ctx) => CustomScrollViewTestRoute(),
+                  withScaffold: false),
+              PageInfo("ScrollController", (ctx) => ScrollControllerTestRoute(),
+                  withScaffold: true),
             ]),
           ),
           ExpansionTile(
@@ -142,7 +152,8 @@ class _MyHomePageState extends State<MyHomePage> {
               PageInfo("返回拦截(WillpopScope)", (ctx) => WillPopScopeTestRoute()),
               PageInfo("数据共享(InheritedWidget)", (ctx) => InheritedTestRoute()),
               PageInfo("款组件状态共享(Provider)", (ctx) => ProviderTestRoute()),
-              PageInfo("颜色和主题(Theme)", (ctx) => ThemeTestRoute(), withScaffold: false),
+              PageInfo("颜色和主题(Theme)", (ctx) => ThemeTestRoute(),
+                  withScaffold: false),
               PageInfo("异步更新UI", (ctx) => FutureAndStreamTestRoute()),
               PageInfo("对话框", (ctx) => DialogRoute()),
             ]),
@@ -150,8 +161,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ExpansionTile(
             title: Text('事件处理与通知'),
             children: _generateItem(context, [
-              PageInfo('手势识别',(ctx)=> GestureDetectorTestRoute()),
-              PageInfo('通知(Notification)',(ctx)=> NotificationTestRoute()),
+              PageInfo('手势识别', (ctx) => GestureDetectorTestRoute()),
+              PageInfo('通知(Notification)', (ctx) => NotificationTestRoute()),
             ]),
           ),
           ExpansionTile(
@@ -160,7 +171,8 @@ class _MyHomePageState extends State<MyHomePage> {
               PageInfo('动画结构', (ctx) => ScaleAnimationRoute()),
               PageInfo('Hero动画', (ctx) => HeroAnimationRoute()),
               PageInfo('交织动画', (ctx) => StaggerAnimationRoute()),
-              PageInfo('通用动画(AnimatedSwitcher)', (ctx) => AnimatedSwitcherRoute()),
+              PageInfo(
+                  '通用动画(AnimatedSwitcher)', (ctx) => AnimatedSwitcherRoute()),
             ]),
           ),
           ExpansionTile(
@@ -169,16 +181,26 @@ class _MyHomePageState extends State<MyHomePage> {
               PageInfo('组合现有组件', (ctx) => CombinationTestRoute()),
               PageInfo('组合实例TurnBox', (ctx) => TurnBoxTestRoute()),
               PageInfo('自绘组件(CustomPaint)', (ctx) => CustomPaintTestRoute()),
-              PageInfo('自绘实例(圆形背景渐变进度条)', (ctx) => GradientCircularProgressRoute()),
+              PageInfo(
+                  '自绘实例(圆形背景渐变进度条)', (ctx) => GradientCircularProgressRoute()),
             ]),
           ),
           ExpansionTile(
             title: Text('文件与网络操作'),
             children: _generateItem(context, [
-              PageInfo('文件操作', (ctx) => FileOperationTestRoute(), withScaffold: false),
+              PageInfo('文件操作', (ctx) => FileOperationTestRoute(),
+                  withScaffold: false),
               PageInfo('HttpClient', (ctx) => HttpClientTestRoute()),
               PageInfo('Dio库', (ctx) => DioTestRoute()),
-              PageInfo('WebSocket协议', (ctx) => WebSocketTestRoute()),
+              PageInfo('WebSocket协议', (ctx) => WebSocketTestRoute(),
+                  withScaffold: false),
+            ]),
+          ),
+          ExpansionTile(
+            title: Text('包和插件'),
+            children: _generateItem(context, [
+              PageInfo('Texture(相机)', (ctx) => CameraTestRoute(),
+                  withScaffold: false),
             ]),
           ),
         ],

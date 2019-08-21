@@ -40,6 +40,10 @@ dependencies:
   web_socket_channel: ^1.0.15
   # json自动生成model
   json_annotation: ^3.0.0
+  # 相机
+  camera: ^0.5.2+2
+  # 视频
+  video_player: ^0.10.1+6
 
 dev_dependencies:
   flutter_test:

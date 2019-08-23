@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:first_flutter_app/combat/CombinationTestRoute.dart';
 import 'package:first_flutter_app/combat/widgets/page_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'widgets/common.dart';
 import 'AlertDialogTestRoute.dart';
 import 'AlignTestRoute.dart';
@@ -53,6 +54,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // 列表中的元素是生成本地化值集合的工厂
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      // 应用支持的语言列表
+      supportedLocales: [
+        const Locale("en", "US"),
+        const Locale("zh", "CN"),
+      ],
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
